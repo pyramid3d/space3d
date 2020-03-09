@@ -1,22 +1,26 @@
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Space3D
-// Free POV-Ray script for space scenes rendering
-// Copyright (C) 2005-2011 Pyramid
+// Libre POV-Ray script for space scenes rendering
+// Copyright (C) 2005-2019 aka pyramid
 // Contact: pyramid@sapo.pt
-// Internet: http://space3d.no.sapo.pt/
+// Internet: https://openteq.wordpress.com/portfolio/space3d/
+// Internet: http://space3d.no.sapo.pt/ (discontinued)
 //
 // This script is distributed with ABSOLUTELY NO WARRANTY;
 // See the GNU General Public License for more details,
-// which can be found in doc/SPACE3D_LICENSE.txt
-//
+// which can be found in LICENSE file or here
+// https://www.gnu.org/licenses/gpl-3.0.en.html
+// ---------------------------------------------------------------------------
 // Persistence of Vision Ray Tracer Scene Description Include File
-// File       : s3d_scene.inc
-// Description: camera definition macros
-// Version    : 0.48
-// Date       : 2011-11-21
-// Author     : Pyramid
-// Scale      : 1 POV Unit = 1km
-// ---------------------------------------------------------------------------------------
+// @file    : s3d_scene.inc
+// @brief   : camera and scene definition macros
+// @version : 2019-05-08
+// @created : 2011-11-21
+// @author  : pyramid
+// @internet: https://openteq.wordpress.com/portfolio/space3d/
+// @scale   : 1 POV unit = 1 km
+// ---------------------------------------------------------------------------
+
 // ---------------------------------------------------------------------------------------
 // MACROS
 //    Sun(vSunLocation, fIntensity)
@@ -28,13 +32,15 @@
 //    CameraTexture()
 //      - a spherical texture unwrap camera for planet surfaces and cloud maps
 //    TitleText(sTitle, Ftitleheight, vTitleRotation, rgbColor)
-//      - writes a text on te image, with vTitleRotation being a fine adjustment 
+//      - writes a text on the image, with vTitleRotation being a fine adjustment 
+//    WaterMark(sTitle, fTitleHeight, rgbColor)
+//      - writes a watermark in the lower left corner of the image 
 // ---------------------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------------------
 // Global Settings
 // ---------------------------------------------------------------------------------------
-#version 3.6;
+
 global_settings {
    assumed_gamma 1.5 //1.0, 1.5-linux, 2.2-windows
    max_trace_level 256 //10
@@ -59,6 +65,78 @@ global_settings {
 // ---------------------------------------------------------------------------------------
 // Macros
 // ---------------------------------------------------------------------------------------
+
+
+// usage examples:
+//#include "space3d.inc"
+//WaterMark("2019 pedrabella Space3D", 3.0, color rgb <0.3, 0.3, 0.3>)
+// optional
+//#declare vCamPos = <0, 0, 0>;
+//#declare vCamRot = <0, 0, 0>;
+//#declare fCamAng = 50;
+#macro WaterMark(sTitle, fTitleHeight, rgbColor)
+  #ifndef (vCamPos)
+      #declare vCamPos = <0, 0, -10>;
+  #end
+  #ifndef (vCamRot)
+      #declare vCamRot = <0, 0, 0>;
+  #end
+  #ifndef (fCamAng)
+      #declare fCamAng = 50;
+  #end
+  //#ifndef (TitleFont)
+    //#declare TitleFont = "arial.ttf"; // "megan___.ttf"; "AndromedaTV.ttf"; "arial.ttf";
+    //#declare TitleFont = "harabara.ttf";
+    //#declare TitleFont = "zektonfree.ttf";
+    #declare TitleFont = "font/zerothrees.ttf";
+  //#end
+
+  //#declare vCamRot = <0,0,0>;
+  //#declare TitleFont = "arial.ttf"; // "megan___.ttf"; "AndromedaTV.ttf"; "arial.ttf";
+  #declare TitleTexture = texture { pigment { color rgbColor transmit 0.7 } finish { ambient 0.8 diffuse 0.5 } }
+  #declare TitleWidth = Text_Width(TitleFont, sTitle, fTitleHeight,0);
+  #declare textScale = radians(0.5*fCamAng)/radians(25)*0.1*fTitleHeight/24;
+  #declare moveH = TitleWidth * 0.03 * textScale;
+  #declare moveV = fTitleHeight * 0.001 * radians(fCamAng/2)/radians(50/2);
+  #declare cornerH = radians(fCamAng/2); //0.450;
+  #declare cornerV = radians(fCamAng/2); //0.440;
+  text { ttf TitleFont, sTitle, 0.02, 0 // depth, spacing
+    scale textScale texture { TitleTexture }
+    translate vCamPos + <-cornerH-moveH*1, -(cornerV*image_height/image_width)-moveV*1, 1>
+    translate -vCamPos rotate vCamRot translate vCamPos no_shadow
+  }
+#end
+
+#macro TitleText(sTitle, fTitleHeight, rgbColor)
+  #ifndef (vCamPos)
+      #declare vCamPos = <0, 0, -10>;
+  #end
+  #ifndef (vCamRot)
+      #declare vCamRot = <0, 0, 0>;
+  #end
+  #ifndef (fCamAng)
+      #declare fCamAng = 50;
+  #end
+  //#declare vTitleRotation = <0,0,0>;
+  #declare TitleFont = "arial.ttf"; // "megan___.ttf"; "AndromedaTV.ttf"; "arial.ttf";
+  #declare TitleTexture = texture { pigment { color rgbColor } finish { ambient 0.8 diffuse 0.5 } }
+  #declare TitleWidth = Text_Width(TitleFont, sTitle, fTitleHeight,0);
+  #declare textScale = radians(0.5*fCamAng)/radians(25)*0.1*fTitleHeight/24;
+  #declare moveH = TitleWidth * 0.0001 * textScale;
+  #declare moveV = fTitleHeight * 0.003 * radians(fCamAng/2)/radians(50/2);
+  #declare cornerH = radians(fCamAng/2); //0.450;
+  #declare cornerV = radians(fCamAng/2); //0.440;
+  text { ttf TitleFont, sTitle, 0.02, 0 // depth, spacing
+    scale textScale texture { TitleTexture }
+    translate vCamPos + <-cornerH+moveH, (cornerV*image_height/image_width)-moveV, 1>
+    translate -vCamPos rotate vCamRot translate vCamPos no_shadow
+  }
+#end
+
+//-----------------------------------
+// Legacy Text Macros
+//-----------------------------------
+
 #macro TitleTextAdjust(Title, Ftitleheight, CameraPosition, CameraAngle, TitleRotation, rgbColor)
    #declare TitleFont = "arial.ttf"; // "megan___.ttf"; "AndromedaTV.ttf"; "arial.ttf";
    #declare TitleTexture = texture { pigment { color rgbColor } finish { ambient 0.8 diffuse 0.5 } }
@@ -91,22 +169,6 @@ global_settings {
    }
 #end
 
-#macro TitleText(sTitle, fTitleHeight, rgbColor)
-  #declare vTitleRotation = <0,0,0>;
-  #declare TitleFont = "arial.ttf"; // "megan___.ttf"; "AndromedaTV.ttf"; "arial.ttf";
-  #declare TitleTexture = texture { pigment { color rgbColor } finish { ambient 0.8 diffuse 0.5 } }
-  #declare TitleWidth = Text_Width(TitleFont, sTitle, fTitleHeight,0);
-  #declare textScale = radians(0.5*fCamAng)/radians(25)*0.1*fTitleHeight/24;
-  #declare moveH = TitleWidth * 0.0001 * textScale;
-  #declare moveV = fTitleHeight * 0.003 * radians(fCamAng/2)/radians(50/2);
-  #declare cornerH = radians(fCamAng/2); //0.450;
-  #declare cornerV = radians(fCamAng/2); //0.440;
-  text { ttf TitleFont, sTitle, 0.02, 0 // depth, spacing
-    scale textScale texture { TitleTexture }
-    translate vCamPos + <-cornerH+moveH, (cornerV*image_height/image_width)-moveV, 1>
-    translate -vCamPos rotate vTitleRotation translate vCamPos no_shadow
-  }
-#end
 
 // ---------------------------------------------------------------------------------------
 // Lights
@@ -137,6 +199,11 @@ global_settings {
   #declare fCameraRotX = -degrees(asin((vLookAt.y-vCamPos.y)/(vLookAt.z-vCamPos.z))); // asin(vec_y/-vec_z)
   #declare fCameraRotY = degrees(asin((vLookAt.x-vCamPos.x)/(vLookAt.z-vCamPos.z)));    // asin(vec_x/-vec_z)
   camera { location vCamPos right <image_width,0,0> up <0,image_height,0> look_at vLookAt angle fCamAngle rotate vRotation }    
+#end
+
+// simple camera, just your position, looking at origin
+#macro CameraPos(vCameraPosition)
+  CameraRotation(vCameraPosition, <0,0,0>, 50, <0,0,0>)
 #end
 
 #macro Camera(vCameraPosition, vLookAt, fCamAngle)

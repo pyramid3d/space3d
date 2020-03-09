@@ -1,21 +1,24 @@
 // ---------------------------------------------------------------------------
 // Space3D
-// Free POV-Ray script for space scenes rendering
-// Copyright (C) 2005-2011 Pyramid
+// Libre POV-Ray script for space scenes rendering
+// Copyright (C) 2005-2019 aka pyramid
 // Contact: pyramid@sapo.pt
-// Internet: http://space3d.no.sapo.pt/
+// Internet: https://openteq.wordpress.com/portfolio/space3d/
+// Internet: http://space3d.no.sapo.pt/ (discontinued)
 //
 // This script is distributed with ABSOLUTELY NO WARRANTY;
 // See the GNU General Public License for more details,
-// which can be found in doc/SPACE3D_LICENSE.txt
-//
+// which can be found in LICENSE file or here
+// https://www.gnu.org/licenses/gpl-3.0.en.html
+// ---------------------------------------------------------------------------
 // Persistence of Vision Ray Tracer Scene Description Include File
-// File       : s3d_planet_trantor.inc
-// Description: Random planet surface generation
-// Version    : 0.47
-// Date       : 2011-04-06
-// Author     : Pyramid
-// Scale      : 1 POV Unit = 1km
+// @file    : s3d_planet_trantor.inc
+// @brief   : Random planet surface generation
+// @version : 2019-05-25
+// @created : 2011-04-06
+// @author  : pyramid
+// @internet: https://openteq.wordpress.com/portfolio/space3d/
+// @scale   : 1 POV unit = 1 km
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 //  MACROS

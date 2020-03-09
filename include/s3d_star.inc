@@ -1,22 +1,24 @@
 // ---------------------------------------------------------------------------
 // Space3D
-// Free POV-Ray script for space scenes rendering
-// Copyright (C) 2005-2009 Pyramid
+// Libre POV-Ray script for space scenes rendering
+// Copyright (C) 2005-2019 aka pyramid
 // Contact: pyramid@sapo.pt
-// Internet: http://space3d.no.sapo.pt/
+// Internet: https://openteq.wordpress.com/portfolio/space3d/
+// Internet: http://space3d.no.sapo.pt/ (discontinued)
 //
 // This script is distributed with ABSOLUTELY NO WARRANTY;
 // See the GNU General Public License for more details,
-// which can be found in doc/SPACE3D_LICENSE.txt
-//
-// Persistence of Vision Ray Tracer Scene Description File
-// File       : starfield_gallery.pov
-// Description: Implementation examples for starfield.inc
-// Version    : 0.25
-// Date       : 2012-04-19
-// Author     : Pyramid
-// Internet   : http://space3d.no.sapo.pt/
-// Scale      : 1 POV Unit = 1km
+// which can be found in LICENSE file or here
+// https://www.gnu.org/licenses/gpl-3.0.en.html
+// ---------------------------------------------------------------------------
+// Persistence of Vision Ray Tracer Scene Description Include File
+// @file    : s3d_star.inc
+// @brief   : a star with corona
+// @version : 2019-05-25
+// @created : 2012-04-19
+// @author  : pyramid
+// @internet: https://openteq.wordpress.com/portfolio/space3d/
+// @scale   : 1 POV unit = 1 km
 // ---------------------------------------------------------------------------
 // Adapted from SunChange.pov for POV-Ray Version: 3.1 or MegaPOV
 // Desc: The Sun, with flares and corona.  Animatable to an extent.

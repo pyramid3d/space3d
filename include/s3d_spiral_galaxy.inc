@@ -1,14 +1,26 @@
 // ---------------------------------------------------------------------------
 // Space3D
-// Persistence of Vision Ray Tracer Scene Description Include File
-// File       : spiral_galaxy.inc
-// Description: Spiral Galaxy for starfields
-// Version    : 0.21
-// Date       : 2008-07-01
-// Author     : Pyramid
-// Internet   : http://space3d.no.sapo.pt/
-// Scale      : 1 POV Unit = 1km
+// Libre POV-Ray script for space scenes rendering
+// Copyright (C) 2005-2019 aka pyramid
+// Contact: pyramid@sapo.pt
+// Internet: https://openteq.wordpress.com/portfolio/space3d/
+// Internet: http://space3d.no.sapo.pt/ (discontinued)
+//
+// This script is distributed with ABSOLUTELY NO WARRANTY;
+// See the GNU General Public License for more details,
+// which can be found in LICENSE file or here
+// https://www.gnu.org/licenses/gpl-3.0.en.html
 // ---------------------------------------------------------------------------
+// Persistence of Vision Ray Tracer Scene Description Include File
+// @file    : s3d_spiral_galaxy.inc
+// @brief   : a spiral galaxy for starfields
+// @version : 2019-05-25
+// @created : 2008-07-01
+// @author  : pyramid
+// @internet: https://openteq.wordpress.com/portfolio/space3d/
+// @scale   : 1 POV unit = 1 km
+// ---------------------------------------------------------------------------
+
 // ---------------------------------------------------------------------------------------
 //TITLE: Space Is Minimalist
 //NAME: Tekno Frannansa

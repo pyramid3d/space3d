@@ -1,23 +1,26 @@
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Space3D
-// Free POV-Ray script for space scenes rendering
-// Copyright (C) 2005-2008 Pyramid
+// Libre POV-Ray script for space scenes rendering
+// Copyright (C) 2005-2019 aka pyramid
 // Contact: pyramid@sapo.pt
-// Internet: http://space3d.no.sapo.pt/
+// Internet: https://openteq.wordpress.com/portfolio/space3d/
+// Internet: http://space3d.no.sapo.pt/ (discontinued)
 //
 // This script is distributed with ABSOLUTELY NO WARRANTY;
 // See the GNU General Public License for more details,
-// which can be found in doc/SPACE3D_LICENSE.txt
-//
+// which can be found in LICENSE file or here
+// https://www.gnu.org/licenses/gpl-3.0.en.html
+// ---------------------------------------------------------------------------
 // Persistence of Vision Ray Tracer Scene Description Include File
-// File       : s3d_stafield.inc
-// Description: Background skysphere starfields
-// Version    : 0.47
-// Date       : 2011-04-14
-// Author     : Pyramid
-// Internet   : http://space3d.no.sapo.pt/
-// Scale      : 1 POV Unit = 1km
-// ---------------------------------------------------------------------------------------
+// @file    : s3d_stafield.inc
+// @brief   : Background skysphere starfields
+// @version : 2019-05-30
+// @created : 2011-04-14
+// @author  : pyramid
+// @internet: https://openteq.wordpress.com/portfolio/space3d/
+// @scale   : 1 POV unit = 1 km
+// ---------------------------------------------------------------------------
+//
 // OBJECT TYPES
 //     QuickNebula()
 //     Starfield()
@@ -46,24 +49,25 @@
 //          replaces P_CloudNebula01 to P_CloudNebula04 to use with sky_sphere
 //     - obsolete P_StarCluster01 to P_StarCluster03 (very slow)
 //          use O_StarCluster instead
-// ---------------------------------------------------------------------------------------
+//
+// ---------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Global Settings
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #version 3.6;
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Include Files
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #include "rand.inc" // random number generation macros
 #include "math.inc" // math function macros
 #include "shapes.inc"
 #include "include/s3d_color.inc" //random color macros
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // User Settings
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 // Quality Settings for test & sample or final rendering
 #ifndef (RENDER_QUALITY)
@@ -102,9 +106,9 @@
    #write(LogFile,"\n[Frame_",frame_number,"]\n")
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Quick Backgrounds
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 #macro Starfield()
   sky_sphere { P_StarField(rgb <0.8, 0.9, 1.0>, 1.0) }
@@ -177,9 +181,9 @@
   */
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Star Field Pigment
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro P_StarField(cColor, fIntensity)
   pigment {
    bozo pigment_map { 
@@ -200,9 +204,9 @@
    } }
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Star Nebula Pigment - like a cloud nebula with embedded stars
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro P_StarNebula(aColors, fIntensity, fStrength, vExcentricity, rSeed)
   #local star4 = pigment { wood color_map {
     [ 0.00 aColors[0]*fIntensity ]
@@ -224,9 +228,9 @@
   scale RRand(0.4,0.6,rSeed)*vExcentricity
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Cloud Nebula Pigment
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro P_CloudNebula(iType, aColors, fIntensity, fStrength, vExcentricity, rSeed)
 // iType = 1-4
   #if (iType>4) #declare iType = 1; #end
@@ -265,13 +269,14 @@
   scale RRand(0.4,0.6,rSeed)*vExcentricity
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Star Cluster Object
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro StarCluster(fSizeMin, fSizeMax, iStarAmount, aStarColors, fIntensity, fDistributionAngle, vOrientation, vExcentricity, rSeed)
   #local fStarFieldDistance = 2e4;
   #local fTranslationRadius = fStarFieldDistance*pi*fDistributionAngle/360;
   #local iDistributionMethod = 3;
+  //#local iDistributionMethod = 1;
   #if (dimension_size(aStarColors,1)<2)
     #declare cTmp = array[2];
     #declare cTmp[0] = aStarColors[0];
@@ -332,8 +337,10 @@
   }
 #end
 
+
+// ---------------------------------------------------------------------------
 // Nebula 1
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro mCloudNebula01(fSize, aNebulaColors, fEmission, rShapeSeed, rColorSeed)
    #if (fEmission = 0) #local fEmission=RRand(0.02,0.15,rColorSeed); #end
    sphere { < 0, 0, 0>, 2 pigment { rgbt 1 } // surface of sphere is transparent
@@ -360,8 +367,9 @@
    }
 #end
 
+// ---------------------------------------------------------------------------
 // Nebula 2
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro mCloudNebula02(fSize, aNebulaColors, fEmission, rShapeSeed, rColorSeed)
    #if (fEmission = 0) #local fEmission=RRand(0.015,0.110,rColorSeed); #end
    sphere { < 0, 0, 0>, 2 pigment { rgbt 1 } // surface of sphere is transparent
@@ -399,8 +407,9 @@
    }
 #end
 
+// ---------------------------------------------------------------------------
 // Nebula 3
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro mCloudNebula03(fSize, aNebulaColors, fEmission, rShapeSeed, rColorSeed)
   #if (fEmission = 0) #local fEmission=RRand(0.05,0.15,rColorSeed); #end
   #local fIntensity = RRand(0.2,0.5,rColorSeed);
@@ -432,8 +441,9 @@
   }
 #end
 
+// ---------------------------------------------------------------------------
 // Nebula 4
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro mCloudNebula04(fSize, cColors, fEmission, rShapeSeed, rColorSeed)
    #if (fEmission = 0) #local fEmission = RRand(0.02,0.11,rColorSeed); #end
    #local fStep = RRand(0.01,0.10,rShapeSeed);
@@ -463,8 +473,9 @@
    } //object
 #end
 
+// ---------------------------------------------------------------------------
 // Nebula 5
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro mCloudNebula05(fSize, cColors, fEmission, rShapeSeed, rColorSeed)
    #if (fEmission = 0) #local fEmission = RRand(0.02,0.10,rColorSeed); #end
    #local fStrength = 1.0; 
@@ -524,8 +535,9 @@
    } //object
 #end
 
+// ---------------------------------------------------------------------------
 // Nebula 6
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 /*Demo scene showing usage of CIE.inc and LightsysIV for space scenes. 
 Creates a starfield with colors of known kelvin temperatures, and a 
 planetary nebulae with real elements colors.
@@ -612,8 +624,9 @@ Jaime Vives Piqueres, Apr-2003. */
    //}
 #end
 
+// ---------------------------------------------------------------------------
 // Nebula 7
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // original author unknown
 #macro mCloudNebula07(fSize, cColors, fEmission, rShapeSeed, rColorSeed)
    #if (fEmission = 0) #declare fDensity=RRand(1,10,rShapeSeed); #else #declare fDensity=fEmission*50; #end //normalized to input max 0.20
@@ -656,12 +669,26 @@ Jaime Vives Piqueres, Apr-2003. */
 #end //macro
 
 
-// Nebula 8
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Cloud Nebula 8
+// ---------------------------------------------------------------------------
 #macro mCloudNebula08(fSize, cColors, fEmission, rShapeSeed, rColorSeed)
+  // @param fEmission [0..10]; 0 - random; > 0.0 - set value
+  // @param fSize - default = 1
+  //   if > 1, then fEmission needs probably to be adjusted too
+  //   though a simple adjustment is integrated
+  // it is best to place object at z*4e4 to avoid artifacts
+  // with stars (at default distance 2e4)
 
-  #declare fSize = 2e4-1;
-  #declare fIntensity = 7e-5; //1/pow(fSize,0.85); //0.00005
+  #if (fSize=0)
+    #declare fSize = RRand(0.1, 10, rShapeSeed);
+  #end
+  #if (fEmission=0)
+    #declare fIntensity = RRand(5e-5, 2e-4, rColorSeed);
+  #else
+    #declare fIntensity = 5e-5 + 4e-5*fEmission;
+  #end
+  #declare fIntensity = fIntensity / fSize;
 
   // make the edges smooth
   #declare dDensityEdgeBlend = density { spherical density_map {
@@ -722,7 +749,14 @@ Jaime Vives Piqueres, Apr-2003. */
       falloff 2.0
     }
   }
-  
+
+  /*
+   * Legacy implementation has artifacts with the star tirangles
+   * which, when present, prevent the nebula density to be drawn
+   * inside the triangles, and therefore makes those visible
+   * as artifacts
+   */
+  /*
   sphere { 0, 2.0*fSize pigment { color rgbt <1, 1, 1, 1> } hollow      
     interior {
       media {         
@@ -739,12 +773,68 @@ Jaime Vives Piqueres, Apr-2003. */
       }
     } 
   }
+  */
+  // TESTS: Substitute sphere with box
+  /*#declare fDenScale = 8*fSize; //80;
+  #declare oNebulaInterior = interior {
+    media {         
+      emission RRand(0.1,0.5,rShapeSeed) * 10 //1.0
+      absorption 0.2   
+      
+      density { dDensityEdgeBlend scale fDenScale }
+      density { dDensityCenterEnforce scale fDenScale }
+      density { dDensityCloudMacro scale fDenScale }
+      density { dDensityCloudMicro scale fDenScale }
+      
+      samples 20 //20
+      scale fDenScale // 1.25*4 (*4 sphere>box)
+    }
+  }*/
+  /*box {
+    // corner 1, corner 2
+    <-image_width*fSize, -image_height*fSize, 0> <image_width*fSize, image_height*fSize, fSize>
+    pigment { color rgbt <1, 1, 1, 1> } hollow
+    //pigment { color rgbt <0.7, 0.7, 1, 0.9> } hollow // testing
+    interior { oNebulaInterior }
+  } */
+
+  // Substitute sphere with box
+  #declare fDenScale = 2e4*fSize;
+  #declare oNebulaInterior = interior {
+    media {         
+      emission RRand(0.1,0.5,rShapeSeed)
+      absorption 0.2   
+      
+      density { dDensityEdgeBlend scale fDenScale }
+      density { dDensityCenterEnforce scale fDenScale }
+      density { dDensityCloudMacro scale fDenScale }
+      density { dDensityCloudMicro scale fDenScale }
+      
+      samples 20 //20
+      scale 1.25
+    }
+  }
+  #declare fSize = 2e4;
+  #declare isBox = 1;
+  #if (isBox)
+  box {
+      // corner 1, corner 2
+      <-image_width*fSize, -image_height*fSize, 0> <image_width*fSize, image_height*fSize, fSize>
+      pigment { color rgbt <1, 1, 1, 1> } hollow
+      //pigment { color rgbt <0.7, 0.7, 1, 0.9> } hollow // testing
+      interior { oNebulaInterior }
+  } #else
+  sphere { 0, 2.0*fSize pigment { color rgbt <1, 1, 1, 1> } hollow      
+    pigment { color rgbt <1, 1, 1, 1> } hollow
+    //pigment { color rgbt <0.7, 0.7, 1, 0.9> } hollow // testing
+    interior { oNebulaInterior }
+  } #end
 
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Ring Nebula Objects
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro RingNebula(fSize, cColors, fEmission, rShapeSeed, rColorSeed)
    #if (fEmission = 0) #local fEmission = RRand(0.50,1.50,rColorSeed); #end
    #local fStep = RRand(0.02,0.10,rShapeSeed);
@@ -776,9 +866,9 @@ Jaime Vives Piqueres, Apr-2003. */
    } //object
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Background Nebula Objects
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // The edges of this nebulae are not smoothed
 // Please use this nebulae only with camera inside them
 
@@ -839,9 +929,9 @@ Jaime Vives Piqueres, Apr-2003. */
    }
 #end //macro
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Nebula Selector
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 #macro NebulaSelect(iType,iNumber, fSize, cColors, fEmission, rShapeSeed, rColorSeed)
 // iType: 1-cloud, 2-background, 3-ring
@@ -877,9 +967,9 @@ Jaime Vives Piqueres, Apr-2003. */
    #end //iType
 #end //macro
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Nebula
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
 #macro Nebula(fSize, cColors, fEmission, rShapeSeed, rColorSeed)
   #declare iType = IRand(1,3,rShapeSeed);
@@ -887,12 +977,13 @@ Jaime Vives Piqueres, Apr-2003. */
   NebulaSelect(iType,iNumber, fSize, cColors, fEmission, rShapeSeed, rColorSeed)
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Star Concentration
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
 // Star Concentration 1 - Torus contained
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro O_StarConcentration01(fSizeMin, fSizeMax, iAmount, cColors, fIntensity, fThicknessPercent, rSeed)
   #local fStarFieldDistance = 2e4;
   #if (fThicknessPercent=0) #declare fThicknessPercent=1; #end
@@ -907,8 +998,9 @@ Jaime Vives Piqueres, Apr-2003. */
   }
 #end
 
+// ---------------------------------------------------------------------------
 // Star Concentration 2 - Sphere contained
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro O_StarConcentration02(fSizeMin, fSizeMax, iAmount, cColors, fIntensity, fThicknessPercent, rSeed)
   #local fStarFieldDistance = 2e4;
   #if (fThicknessPercent=0) #declare fThicknessPercent=1; #end
@@ -923,9 +1015,9 @@ Jaime Vives Piqueres, Apr-2003. */
   }
 #end
 
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Star Concentration
-// ---------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 #macro StarConcentration(iType, fSizeMin, fSizeMax, iAmount, cColors, fIntensity, fThicknessPercent, rSeed)
   #switch (iType)
     #case (1)
@@ -1144,7 +1236,19 @@ Jaime Vives Piqueres, Apr-2003. */
 // ---------------------------------------------------------------------------------------
 // Star Cluster Objects
 // ---------------------------------------------------------------------------------------
+// Essentially obsolete and replaced by StarCluster macro.
+// They have previously been used inline to experiment with different concepts.
+// Mostly to determine the best way of making a picture of the universe look as
+// realistic as possible by creating diversity in randomness, star sizes, luminosity,
+// and distribution, also forming tiny clusters.
+// Not an easy task at it may seem. It ultimately partialy failed. The small star
+// clusters must be made by hand still.
+// They have not been updated to the macro use approach and may not work at all.
+// The code is still kept around for historical reference.
+// Just in case someone may need to recall the development and experimenation stages.
 
+
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 1
 // ---------------------------------------------------------------------------------------
 // simple triangle star cluster object
@@ -1165,16 +1269,16 @@ Jaime Vives Piqueres, Apr-2003. */
           [0.09 STARFIELD_STAR_COLOR*STARFIELD_STAR_AURA transmit 0.5] 
           [0.25 STARFIELD_STAR_AURA transmit 1] } scale 2 }
         finish { ambient 1 diffuse 0 reflection 0 phong 0 specular 0 crand 0 }
-        scale RRand(fStarSize*fSizeMin, fStarSize*fSizeMax, S)
-        #local _SC_TRANSLATION = RRand(0.5*fDistributionAngle, 2*fDistributionAngle, S);
-        #local t_x = RRand(-_SC_TRANSLATION, _SC_TRANSLATION, S);
-        #local t_y = RRand(-_SC_TRANSLATION, _SC_TRANSLATION, S);
+        scale RRand(fStarSize*fSizeMin, fStarSize*fSizeMax, rSeed)
+        #local _SC_TRANSLATION = RRand(0.5*fDistributionAngle, 2*fDistributionAngle, rSeed);
+        #local t_x = RRand(-_SC_TRANSLATION, _SC_TRANSLATION, rSeed);
+        #local t_y = RRand(-_SC_TRANSLATION, _SC_TRANSLATION, rSeed);
         #local t_z = (fStarDistance) + I;
         translate <t_x, t_y, t_z>
-        #local _SC_ROTATE = RRand(STARFIELD_DISTRIBU_ANGLE/2, STARFIELD_DISTRIBU_ANGLE*2,S);
-        #local rot_x = RRand(-_SC_ROTATE*STARCLUSTER_EXCENTRICITY.x, _SC_ROTATE*STARCLUSTER_EXCENTRICITY.x, S);
-        #local rot_y = RRand(-_SC_ROTATE*STARCLUSTER_EXCENTRICITY.y, _SC_ROTATE*STARCLUSTER_EXCENTRICITY.y, S);
-        #local rot_z = RRand(-_SC_ROTATE*STARCLUSTER_EXCENTRICITY.z, _SC_ROTATE*STARCLUSTER_EXCENTRICITY.z, S);
+        #local _SC_ROTATE = RRand(STARFIELD_DISTRIBU_ANGLE/2, STARFIELD_DISTRIBU_ANGLE*2, rSeed);
+        #local rot_x = RRand(-_SC_ROTATE*STARCLUSTER_EXCENTRICITY.x, _SC_ROTATE*STARCLUSTER_EXCENTRICITY.x, rSeed);
+        #local rot_y = RRand(-_SC_ROTATE*STARCLUSTER_EXCENTRICITY.y, _SC_ROTATE*STARCLUSTER_EXCENTRICITY.y, rSeed);
+        #local rot_z = RRand(-_SC_ROTATE*STARCLUSTER_EXCENTRICITY.z, _SC_ROTATE*STARCLUSTER_EXCENTRICITY.z, rSeed);
         rotate <rot_x,rot_y,rot_z>
         rotate STARCLUSTER_DISTRIBU_ANGLE
       }
@@ -1182,6 +1286,7 @@ Jaime Vives Piqueres, Apr-2003. */
   }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 2
 // ---------------------------------------------------------------------------------------
 // triangle star cluster object with aura
@@ -1221,6 +1326,7 @@ Jaime Vives Piqueres, Apr-2003. */
   }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Triangles for Star Cluster Object 3 & 5
 // ---------------------------------------------------------------------------------------
 // sphere based star objects
@@ -1239,70 +1345,74 @@ Jaime Vives Piqueres, Apr-2003. */
 #macro oStarTriangle_Tiny() //STARFIELD_STAR_TYPE = 1; recommended size min/max = 0.2/0.5
    triangle { oStarTriangle_BaseObject
       #local STARFIELD_STARSIZE_MIN = 0.02; #local STARFIELD_STARSIZE_MAX = 0.05;
-      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX,S)
+      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX, rSeed)
    }
 #end
 
 #macro oStarTriangle_Small() //STARFIELD_STAR_TYPE = 2; recommended size min/max = 0.5/1.0
    triangle { oStarTriangle_BaseObject
       #local STARFIELD_STARSIZE_MIN = 0.5; #local STARFIELD_STARSIZE_MAX = 1.0;
-      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX,S)
+      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX, rSeed)
    }
 #end
 
-#macro oStarTriangle_Medium() //STARFIELD_STAR_TYPE = 3; recommended size min/max = 1/2 
+#macro oStarTriangle_Medium(rSeed) //STARFIELD_STAR_TYPE = 3; recommended size min/max = 1/2 
    triangle { oStarTriangle_BaseObject
       #local STARFIELD_STARSIZE_MIN = 1.0; #local STARFIELD_STARSIZE_MAX = 2;
-      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX,S)
+      #local fStarSize = RRand(STARFIELD_STARSIZE_MIN, STARFIELD_STARSIZE_MAX, rSeed)
+      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX, rSeed)
    }
 #end
 
 #macro oStarTriangle_Big() //STARFIELD_STAR_TYPE = 4 / recommended size min/max = 2/3 
    triangle { oStarTriangle_BaseObject
       #local STARFIELD_STARSIZE_MIN = 2; #local STARFIELD_STARSIZE_MAX = 3;
-      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX,S)
+      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX, rSeed)
    }
 #end
 
 #macro oStarTriangle_Large() //STARFIELD_STAR_TYPE = 5 / recommended size min/max = 3/5
    triangle { oStarTriangle_BaseObject
       #local STARFIELD_STARSIZE_MIN = 3; #local STARFIELD_STARSIZE_MAX = 5;
-      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX,S)
+      scale fStarSize*RRand(STARFIELD_STARSIZE_MIN,STARFIELD_STARSIZE_MAX, rSeed)
    }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 3
 // ---------------------------------------------------------------------------------------
 // non-uniform triangle based star cluster object
 #declare fStarFieldDistance = 2e4;
 #declare fTranslationRadius = fStarFieldDistance*pi*STARFIELD_DISTRIBU_ANGLE/360;
    
-#macro O_StarCluster03()
+//#macro O_StarCluster03()
+#macro O_StarCluster03(fSizeMin, fSizeMax, iAmount, fIntensity, rSeed)
    union {
       #local I=0; #while (I < STARFIELD_STAR_AMOUNT)
          object {
             #switch (STARFIELD_STAR_TYPE)
                #case (1) oStarTriangle_Tiny()   #break  
                #case (2) oStarTriangle_Small()  #break  
-               #case (3) oStarTriangle_Medium() #break  
+               #case (3) oStarTriangle_Medium(rSeed) #break  
                #case (4) oStarTriangle_Big()    #break  
                #case (5) oStarTriangle_Large()  #break  
             #end
-            #local fTranslation = RRand(0.5*fTranslationRadius, 2*fTranslationRadius, S);
-            #local t_x = RRand(-fTranslation, fTranslation, S);
-            #local t_y = RRand(-fTranslation, fTranslation, S);
-            #local t_z = fStarFieldDistance * RRand(0.9,1.1,S);
+            #local fTranslation = RRand(0.5*fTranslationRadius, 2*fTranslationRadius, rSeed);
+            #local t_x = RRand(-fTranslation, fTranslation, rSeed);
+            #local t_y = RRand(-fTranslation, fTranslation, rSeed);
+            #local t_z = fStarFieldDistance * RRand(0.9,1.1,rSeed);
             translate <t_x, t_y, t_z>
-            #local fRotation = RRand(STARFIELD_DISTRIBU_ANGLE/2, STARFIELD_DISTRIBU_ANGLE*2,S);
-            #local rot_x = fRotation*RRand(-STARCLUSTER_EXCENTRICITY.x, STARCLUSTER_EXCENTRICITY.x, S);
-            #local rot_y = fRotation*RRand(-STARCLUSTER_EXCENTRICITY.y, STARCLUSTER_EXCENTRICITY.y, S);
-            #local rot_z = fRotation*RRand(-STARCLUSTER_EXCENTRICITY.z, STARCLUSTER_EXCENTRICITY.z, S);
+            #local fRotation = RRand(STARFIELD_DISTRIBU_ANGLE/2, STARFIELD_DISTRIBU_ANGLE*2,rSeed);
+            #local rot_x = fRotation*RRand(-STARCLUSTER_EXCENTRICITY.x, STARCLUSTER_EXCENTRICITY.x, rSeed);
+            #local rot_y = fRotation*RRand(-STARCLUSTER_EXCENTRICITY.y, STARCLUSTER_EXCENTRICITY.y, rSeed);
+            #local rot_z = fRotation*RRand(-STARCLUSTER_EXCENTRICITY.z, STARCLUSTER_EXCENTRICITY.z, rSeed);
             rotate <rot_x,rot_y,rot_z> rotate STARCLUSTER_DISTRIBU_ANGLE
          }
       #local I=I+1; #end
    }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Spheres for Star Cluster Object 4 & 6
 // ---------------------------------------------------------------------------------------
 // sphere based star objects
@@ -1357,6 +1467,7 @@ Jaime Vives Piqueres, Apr-2003. */
    }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 4
 // ---------------------------------------------------------------------------------------
 // uniform sphere based star cluster object
@@ -1382,6 +1493,7 @@ Jaime Vives Piqueres, Apr-2003. */
    }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 5
 // ---------------------------------------------------------------------------------------
 // uniform triangle based star cluster object
@@ -1447,6 +1559,7 @@ Jaime Vives Piqueres, Apr-2003. */
    }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 6
 // ---------------------------------------------------------------------------------------
 // non-uniform sphere based star cluster object
@@ -1478,6 +1591,7 @@ Jaime Vives Piqueres, Apr-2003. */
    }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Object 7
 // ---------------------------------------------------------------------------------------
 #macro O_StarCluster07(iType, iStarAmount, fSizeMin, fSizeMax, rDistSeed) 
@@ -1524,6 +1638,7 @@ Jaime Vives Piqueres, Apr-2003. */
   }
 #end
 
+// ---------------------------------------------------------------------------------------
 // Star Cluster Triangle Object
 // ---------------------------------------------------------------------------------------
 // uniform triangle based star cluster object
@@ -1565,7 +1680,7 @@ Jaime Vives Piqueres, Apr-2003. */
          #declare STARFIELD_STAR_TYPE = I; //2-4 //1=tiny 2=small 3=medium 4=big 5=large      
          #declare STARFIELD_STAR_INTENSITY = fIntensityFactor*RRand(0.9,1.1,rColor); //(1+STARFIELD*fIntensityFactor)*RRand(0.9,1.1,rColor); //maximum intensity
          #declare STARFIELD_STAR_COLOR = RandomColor(IRand(aColorRange[0], aColorRange[1], rColor), rColor, fColorDev)
-         #declare starfield_seed_no = starfield_seed_no + STARFIELD;
+         //#declare starfield_seed_no = starfield_seed_no + STARFIELD;
          #declare STARCLUSTER_EXCENTRICITY = <RRand(1.0,2.0,rShape), RRand(1.0,2.0,rShape), RRand(1.0,2.0,rShape)>;
          #declare STARFIELD_DISTRIBU_ANGLE = fDistribution;
          #declare STARCLUSTER_DISTRIBU_ANGLE = <RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition), RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition), RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition)>;
@@ -1586,7 +1701,7 @@ Jaime Vives Piqueres, Apr-2003. */
          #declare STARFIELD_STAR_TYPE = I; //2-4 //1=tiny 2=small 3=medium 4=big 5=large      
          #declare STARFIELD_STAR_INTENSITY = fIntensityFactor*RRand(0.9,1.1,rColor); //(1+STARFIELD*fIntensityFactor)*RRand(0.9,1.1,rColor); //maximum intensity
          #declare STARFIELD_STAR_COLOR = RandomColor(IRand(aColorRange[0],aColorRange[1], rColor), rColor, fColorDev) //1=red 2=orange 3=yellow 4=greenish 5=blueish
-         #declare starfield_seed_no = starfield_seed_no + STARFIELD;
+         //#declare starfield_seed_no = starfield_seed_no + STARFIELD;
          #declare STARCLUSTER_EXCENTRICITY = <RRand(1.0,5.0,rPosition), 1.0, 1.0>;
          #declare STARFIELD_DISTRIBU_ANGLE = 180;
          #declare STARCLUSTER_DISTRIBU_ANGLE = <RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition), RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition), RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition)>;
@@ -1610,7 +1725,7 @@ Jaime Vives Piqueres, Apr-2003. */
          #declare STARFIELD_STAR_TYPE = I; //2-4 //1=tiny 2=small 3=medium 4=big 5=large      
          #declare STARFIELD_STAR_INTENSITY = fIntensityFactor*RRand(0.9,1.1,rColor); //(1+STARFIELD*fIntensityFactor)*RRand(0.9,1.1,rColor); //maximum intensity
          #declare STARFIELD_STAR_COLOR = RandomColor(IRand(aColorRange[0],aColorRange[1], rColor), rColor, fColorDev) //1=red 2=orange 3=yellow 4=greenish 5=blueish
-         #declare starfield_seed_no = starfield_seed_no + STARFIELD;
+         //#declare starfield_seed_no = starfield_seed_no + STARFIELD;
          #declare STARCLUSTER_EXCENTRICITY = <RRand(1.0,5.0,rPosition), 1.0, 1.0>;
          #declare STARFIELD_DISTRIBU_ANGLE = 180;
          #declare STARCLUSTER_DISTRIBU_ANGLE = <RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition), RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition), RRand(-STARFIELD_DISTRIBU_ANGLE,STARFIELD_DISTRIBU_ANGLE,rPosition)>;

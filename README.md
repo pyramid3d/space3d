@@ -1,9 +1,12 @@
 ```bash
-# @file: README.md
-# @version: 2019-04-21
+#====================================
+# @file   : README.md (Space3D)
+# @version: 0.55
+# @version: 2020-03-09
 # @created: 2019-04-19
-# @author: pyramid
-# @brief: documentation for space3d
+# @author : pyramid
+# @brief  : documentation for space3d
+#====================================
 ```
 
 
@@ -11,7 +14,7 @@
 =====================================
 # **Space3D**
 ## **Pov-Ray Space Rendering**
-###**create space scenes, star beckgrouns, planetray maps with Space3D (space3d) for pov-ray**
+### **create space scenes, star backgrounds, planetary maps with Space3D (space3d) for pov-ray**
 =====================================
 
 =====================================
@@ -25,7 +28,7 @@ For solar system planet rendering, place the textures in the maps directory and 
 # Rendering
 =====================================
 
-Render the simple scene first (defaut or square aspect as intended for the scene)
+Render the simple scene first (default or square aspect as intended for the scene)
 
 ```
 > povray simple_scene.pov
@@ -71,7 +74,7 @@ Library_Path="/usr/share/fonts/truetype/"
 
 You can probably learn a lot just by analyzing the simple scene descriptions, looking oat the rendered image, and just playing with the different parameters.
 
-The code is documented, and you may see the parameters description by searching for the respective funditon.#
+The code is documented, and you may see the parameters description by searching for the respective function.#
 For example:
 
 ```
@@ -80,9 +83,9 @@ include/s3d_starfield.inc:#macro P_StarField(cColor, fIntensity)
 ```
 
 
-Tutotials are available on openTeq/Space3D blog (https://openteq.wordpress.com/portfolio/space3d/).
+Tutorials are available on openTeq/Space3D blog (https://openteq.wordpress.com/portfolio/space3d/).
 
-Pov-Ray documentation is avaliable here
+Pov-Ray documentation is available here
 
 - http://www.povray.org/
 - http://wiki.povray.org/
